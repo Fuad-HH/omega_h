@@ -25,14 +25,14 @@ bob_option(Omega_h_THROW "Errors throw exceptions instead of abort" ${USE_XSDK_D
 bob_input(Omega_h_DATA "" PATH "Path to omega_h-data test files")
 bob_option(Omega_h_USE_EGADS "Use EGADS from ESP for geometry" OFF)
 bob_input(EGADS_PREFIX "" PATH "EGADS (or ESP) installation directory")
-bob_option(Omega_h_USE_Kokkos "Use Kokkos as a backend" OFF)
+bob_option(Omega_h_USE_Kokkos "Use Kokkos as a backend" ON)
 bob_input(Kokkos_PREFIX "" PATH "Path to Kokkos install")
 bob_option(Omega_h_USE_CUDA_AWARE_MPI "Assume MPI is CUDA-aware, make use of that" OFF)
 bob_option(Omega_h_USE_SimModSuite "Enable reading Simmetrix MeshSim meshes" OFF)
 bob_input(Omega_h_VALGRIND "" STRING "Valgrind plus arguments for testing")
 bob_option(Omega_h_EXAMPLES "Compile examples" OFF)
 
-bob_option(Omega_h_USE_MPI "Use MPI for parallelism" OFF)
+bob_option(Omega_h_USE_MPI "Use MPI for parallelism" ON)
 bob_option(Omega_h_ENABLE_DEMANGLED_STACKTRACE "Add linker options to enable human-readable stacktraces on gnu-c platforms." OFF)
 bob_option(Omega_h_DBG "Enable debug prints, stacktraces, etc." OFF)
 bob_option(Omega_h_GPU_CHECK "Run GPU check after each test" OFF) #the check command is hardcoded!
@@ -56,7 +56,7 @@ set(Omega_h_USE_ZLIB_DEFAULT ON)
 bob_add_dependency(PUBLIC NAME ZLIB TARGETS ZLIB::ZLIB)
 
 set(Kokkos_REQUIRED_VERSION 3.7)
-set(Omega_h_USE_Kokkos_DEFAULT OFF)
+set(Omega_h_USE_Kokkos_DEFAULT ON)
 set(KokkosCore_PREFIX_DEFAULT ${Kokkos_PREFIX})
 bob_add_dependency(PUBLIC NAME Kokkos TARGETS Kokkos::kokkos)
 if (Omega_h_USE_Kokkos)
@@ -67,7 +67,7 @@ set(libMeshb_REQUIRED_VERSION 7.24)
 set(Omega_h_USE_libMeshb_DEFAULT OFF)
 bob_add_dependency(PUBLIC NAME libMeshb TARGETS libMeshb::Meshb.7)
 
-set(Omega_h_USE_Gmsh_DEFAULT OFF)
+set(Omega_h_USE_Gmsh_DEFAULT ON)
 bob_add_dependency(PUBLIC NAME Gmsh
     INCLUDE_DIR_VARS Gmsh_INCLUDE_DIRS
     LIBRARY_VARS Gmsh_LIBRARIES)
@@ -121,7 +121,7 @@ if ((Omega_h_MEM_SPACE_DEVICE AND Omega_h_MEM_SPACE_HOSTPINNED) OR
   message(FATAL_ERROR "Only one memory space allowed from these options: [ Omega_h_MEM_SPACE_SHARED, Omega_h_MEM_SPACE_HOSTPINNED, Omega_h_MEM_SPACE_DEVICE ]")
 endif()
 
-bob_option(Omega_h_USE_MPI "Use MPI for parallelism" OFF)
+bob_option(Omega_h_USE_MPI "Use MPI for parallelism" ON)
 bob_option(Omega_h_USE_OpenMP "Whether to use OpenMP" "${Kokkos_HAS_OpenMP}")
 bob_option(Omega_h_USE_CUDA "Whether to use CUDA" "${Kokkos_HAS_CUDA}")
 

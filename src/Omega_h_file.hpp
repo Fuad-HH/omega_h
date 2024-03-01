@@ -78,8 +78,8 @@ Mesh read_sliced(filesystem::path const& path, CommPtr comm,
 #endif
 
 namespace gmsh {
-Mesh read(std::istream& stream, CommPtr comm);
-Mesh read(filesystem::path const& filename, CommPtr comm);
+Mesh read(std::istream& stream, CommPtr comm, bool isbalance=true);
+Mesh read(filesystem::path const& filename, CommPtr comm, bool isbalance=true);
 void write(std::ostream& stream, Mesh* mesh);
 void write(filesystem::path const& filepath, Mesh* mesh);
 

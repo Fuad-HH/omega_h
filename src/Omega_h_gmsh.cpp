@@ -515,22 +515,27 @@ void read_internal(std::istream& stream, Mesh* mesh) {
 
 }  // end anonymous namespace
 
-Mesh read(std::istream& stream, CommPtr comm) {
+/* Edited this function to take a bool called balance
+ * Some of the tests may need unbalanced meshes
+*/
+Mesh read(std::istream& stream, CommPtr comm, bool isbalance) {
   auto mesh = Mesh(comm->library());
   if (comm->rank() == 0) {
     read_internal(stream, &mesh);
   }
   mesh.set_comm(comm);
-  mesh.balance();
+  if(isbalance){
+    mesh.balance();
+  }
   return mesh;
 }
 
-Mesh read(filesystem::path const& filename, CommPtr comm) {
+Mesh read(filesystem::path const& filename, CommPtr comm, bool isbalance) {
   std::ifstream file(filename.c_str());
   if (!file.is_open()) {
     Omega_h_fail("couldn't open \"%s\"\n", filename.c_str());
   }
-  return gmsh::read(file, comm);
+  return gmsh::read(file, comm, isbalance);
 }
 
 #ifdef OMEGA_H_USE_GMSH
